@@ -35,5 +35,8 @@ public class Main {
 	private static Set<Character> getVowels(String str){
 		return str.chars().mapToObj(c -> (char)c).filter(c -> {return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';}).collect(Collectors.toSet());
 	}
+	
+	
+	
 
 }
