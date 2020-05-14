@@ -39,7 +39,7 @@ public class SegmentTree<F,E> {
 	
 	private E query(int rangeStart, int rangeEnd, int treeIndex, int start, int end) {
 		if(start == end)
-			return segTree[start];
+			return segTree[treeIndex];
 		E res;
 		int mid = start + (end - start)/2;
 		if(rangeStart <= start && rangeEnd >= end)
@@ -57,6 +57,7 @@ public class SegmentTree<F,E> {
 	private void update(int treeIndex, int start, int end, int pos, F val) {
 		if(start == end) {
 			segTree[treeIndex] = converterFunc.apply(val);
+			return;
 		}
 		int mid = start + (end - start)/2;
 		if(pos <= mid)
