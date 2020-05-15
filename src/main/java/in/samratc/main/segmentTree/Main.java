@@ -1,4 +1,4 @@
-package in.samratc.main;
+package in.samratc.main.segmentTree;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,3 +99,5 @@ class Solution{
         return ans.stream().mapToInt(i->i).toArray();
     }
 }
+
+

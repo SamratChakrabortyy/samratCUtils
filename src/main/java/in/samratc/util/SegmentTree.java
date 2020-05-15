@@ -26,6 +26,10 @@ public class SegmentTree<F,E> {
         build(1, 0, arrSize - 1);
 	}
 	
+	public E[] getSegTree() {
+		return segTree;
+	}
+	
 	public void update(int pos, F val) {
 		if(pos < 0 || pos >= arrSize)
 			throw new IllegalStateException("Invalid Array Position");
