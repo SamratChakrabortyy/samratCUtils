@@ -28,7 +28,7 @@ public class SpecialSum {
 
 class SpecialSumSol {
 
-	long mod = 100000007L;
+	long mod = 1000000007L;
 
 	public int[] solve(int[] arr, int[][] queries) {
 		// Null check
