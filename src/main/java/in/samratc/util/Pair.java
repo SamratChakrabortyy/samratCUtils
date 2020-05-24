@@ -1,8 +1,8 @@
 package in.samratc.util;
 
 public class Pair<E,F>{
-    E val1;
-    F val2;
+    public E val1;
+    public F val2;
     
     public Pair(E x, F y){
         val1=x;

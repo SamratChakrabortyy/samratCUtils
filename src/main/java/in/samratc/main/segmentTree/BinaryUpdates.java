@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnArray;
 
 public class BinaryUpdates {
 
@@ -21,7 +21,7 @@ class BinaryUpdate {
 	public int[] solve(int a, int[][] b) {
 		Integer[] arr = new Integer[a];
 		Arrays.fill(arr, 1);
-		SegmentTree<Integer, Integer> sumTree = new SegmentTree<Integer, Integer>(Integer.class, arr, Integer::sum,
+		SegmentTreeOnArray<Integer, Integer> sumTree = new SegmentTreeOnArray<Integer, Integer>(Integer.class, arr, Integer::sum,
 				Function.identity());
 		segTree = sumTree.getSegTree();
 		int n = b.length;

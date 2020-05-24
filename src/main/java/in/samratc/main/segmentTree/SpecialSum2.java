@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnArray;
 
 public class SpecialSum2 {
 
@@ -39,7 +39,7 @@ class SpecialSum2Sol {
 			arr[i][1] = (long) (i + 1) * a[i];
 		}
 		ArrayList<Integer> sums = new ArrayList<Integer>();
-		SegmentTree<Long[], Long[]> rangeSumSegTree = new SegmentTree<Long[], Long[]>(Long[].class, arr, this::modSum,
+		SegmentTreeOnArray<Long[], Long[]> rangeSumSegTree = new SegmentTreeOnArray<Long[], Long[]>(Long[].class, arr, this::modSum,
 				Function.identity());
 
 		n = queries.length;

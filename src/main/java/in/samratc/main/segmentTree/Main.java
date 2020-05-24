@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnArray;
 
 public class Main {
 
@@ -52,7 +53,8 @@ public class Main {
 		//Building segment tree for Strings where each of the tree nodes contain the charSet for vowels
 
 		String[] arr2 = {"ab", "bc", "de", "ef", "ij", "kl", "ou"};
-		SegmentTree<String, Set> vowelSegTree = new SegmentTree<>(Set.class, arr2, Main::charSetMerger, Main::getVowels);
+		SegmentTree<String, Set> vowelSegTree = new SegmentTreeOnArray<>(Set.class, arr2, Main::charSetMerger, Main::getVowels);
+		
 		vowelSegTree.print();
 	}
 
@@ -75,7 +77,7 @@ class Solution{
         Integer[] arr = new Integer[n];
         List<Integer> ans = new ArrayList<>();
         Arrays.fill(arr,0);
-        SegmentTree<Integer,Integer> sumSegTree = new SegmentTree<>(Integer.class, arr, Integer::sum, Function.identity());
+        SegmentTreeOnArray<Integer,Integer> sumSegTree = new SegmentTreeOnArray<>(Integer.class, arr, Integer::sum, Function.identity());
         n = b.length;
         for(int i = 0; i < n; i++){
         	b[i][1]--;

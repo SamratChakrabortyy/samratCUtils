@@ -2,7 +2,7 @@ package in.samratc.main.segmentTree;
 
 import java.util.ArrayList;
 
-import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnArray;
 
 public class PrimeInRange {
 
@@ -19,7 +19,7 @@ class PrimeInRangeSol {
 			ArrayList<Integer> y) {
 
 		Integer[] arr = list.stream().toArray(Integer[]::new);
-		SegmentTree<Integer, Integer> raneSumSegTree = new SegmentTree<Integer, Integer>(Integer.class, arr,
+		SegmentTreeOnArray<Integer, Integer> raneSumSegTree = new SegmentTreeOnArray<Integer, Integer>(Integer.class, arr,
 				Integer::sum, this::checkPrime);
 		int n = q.size();
 		ArrayList<Integer> ans = new ArrayList<>();

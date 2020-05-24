@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnArray;
 
 public class DistinctNumbers {
 
@@ -58,7 +58,7 @@ class DistinctNumbersSol {
 		Integer[] uniqIntegers = new Integer[m];
 		Arrays.fill(uniqIntegers, 0);
 
-		SegmentTree<Integer, Integer> rangeSumSegmentTree = new SegmentTree<Integer, Integer>(Integer.class,
+		SegmentTreeOnArray<Integer, Integer> rangeSumSegmentTree = new SegmentTreeOnArray<Integer, Integer>(Integer.class,
 				uniqIntegers, Integer::sum, Function.identity());
 
 		// Answering the queries

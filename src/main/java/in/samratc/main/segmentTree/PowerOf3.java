@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnArray;
 
 public class PowerOf3 {
 
@@ -41,7 +41,7 @@ class PowerOf3Sol {
 			arr[i] = temp;
 		}
 		
-		SegmentTree<Integer[], Integer[]>  mod3SegTree = new SegmentTree<Integer[], Integer[]>(Integer[].class, arr, this::concatMod, Function.identity());
+		SegmentTreeOnArray<Integer[], Integer[]>  mod3SegTree = new SegmentTreeOnArray<Integer[], Integer[]>(Integer[].class, arr, this::concatMod, Function.identity());
 		ArrayList<Integer> ans = new ArrayList<Integer>();
 		for(List<Integer> q : queries) {
 			switch (q.get(0)) {

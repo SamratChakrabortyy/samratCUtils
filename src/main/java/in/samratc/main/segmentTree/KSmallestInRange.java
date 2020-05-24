@@ -1,13 +1,21 @@
 package in.samratc.main.segmentTree;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import in.samratc.util.Pair;
 import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnList;
 
 public class KSmallestInRange {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		//int arr[] = { 1, -2, 6, 1, 3 }, queries[][] = { { 2, 4, 2 }, { 1, 5, 4 }, { 3, 3, 1 } };
+		
 		int arr[] = { -10937, 7838, -6149, 6823, 2013, -3575, 2476, -4493, 6194, 3576, -6907, 4447, 4121, 3132, -7399,
 				6668, 6791, -7154, 10222, 9834, -10596, -7766, 6407, -812, 6612, -99, 1921, -7976, 8684, 7852, 868,
 				1178, 10623, 609, 9759, -3188, -424, -9929, -6973, 6269, -8405, 10150, 10295, -5204, 1408, 9328, 9283,
@@ -131,61 +139,119 @@ public class KSmallestInRange {
 						{ 3, 461, 99 }, { 265, 478, 130 }, { 278, 477, 100 }, { 460, 506, 26 }, { 74, 138, 10 },
 						{ 92, 425, 57 }, { 27, 511, 282 }, { 2, 536, 323 }, { 191, 370, 8 }, { 396, 491, 15 },
 						{ 26, 512, 376 }, { 331, 395, 8 }, { 362, 473, 64 }, { 94, 123, 18 }, { 29, 509, 112 },
-						{ 174, 381, 32 }, };
-		System.out.println(Arrays.toString(new KSmallestInRangeSol().solve(arr, queries)));
+						{ 174, 381, 32 } };
+
+		List<Integer> list = Arrays.stream(arr).boxed().collect(Collectors.toList());
+		List<List<Integer>> queryList = new ArrayList<>();
+		for (int[] q : queries) {
+			List<Integer> temp = Arrays.stream(q).boxed().collect(Collectors.toList());
+			queryList.add(temp);
+		}
+		System.out.println(new KSmallestInRangeSol().solve(list, queryList));
 	}
 
 }
 
 class KSmallestInRangeSol {
 
-	public int[] solve(int[] a, int[][] queries) {
-		// Null Check
-		if (a == null || queries == null)
-			return a;
+	List<Integer>[] segTee;
 
-		Integer[] arr = Arrays.stream(a).boxed().toArray(Integer[]::new);
-		SegmentTree<Integer, Integer[]> sortedRangeSegmentTree = new SegmentTree<>(Integer[].class, arr,
-				this::mergeSorted, this::toArray);
+	//@SuppressWarnings({ "unchecked", "rawtypes" })
+	public ArrayList<Integer> solve(List<Integer> list, List<List<Integer>> quries) {
+		int n = list.size();
+		/*List<Pair<Integer, Integer>> pairs = IntStream.range(0, n).mapToObj(i -> new Pair(list.get(i), i))
+				.sorted(this::intPairComparator).collect(Collectors.toList());*/
 
-		int n = queries.length;
-		int[] ans = new int[n];
+		List<Pair<Integer, Integer>> pairs = new ArrayList<Pair<Integer,Integer>>();
+		
+		for(int i = 0; i < n; i++) {
+			pairs.add(new Pair<Integer, Integer>(list.get(i), i));
+		}
+		Collections.sort(pairs, this::intPairComparator);
+		
+		List<Integer> sortedIndices = pairs.stream().map(p -> p.val2).collect(Collectors.toList());
 
-		for (int i = 0; i < n; i++) {
-			int start = --queries[i][0], end = --queries[i][1], k = --queries[i][2];
-			ans[i] = sortedRangeSegmentTree.query(start, end)[k];
+		SegmentTree<Integer, List> mergeSortTree = new SegmentTreeOnList<>(List.class, sortedIndices, this::mergeSorted,
+				Arrays::asList);
+		segTee = mergeSortTree.getSegTree();
+
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+
+		for (List<Integer> q : quries) {
+			int index = custumQuery(1, 0, n - 1, q.get(0) - 1, q.get(1) - 1, q.get(2));
+			ans.add(list.get(index));
 		}
 		return ans;
 	}
 
-	private Integer[] toArray(Integer a) {
-		Integer[] temp = new Integer[1];
-		temp[0] = a;
-		return temp;
+	private int intPairComparator(Pair<Integer, Integer> a, Pair<Integer, Integer> b) {
+		return Integer.compare(a.val1, b.val1);
 	}
 
-	private Integer[] mergeSorted(Integer[] arr1, Integer[] arr2) {
-		Integer[] ans = {};
-		if ((arr1 == null && arr2 == null) || (arr1.length == 0 && arr2.length == 0))
+	private List<Integer> mergeSorted(List<Integer> a, List<Integer> b) {
+		List<Integer> ans = new ArrayList<>();
+		if (a == null && b == null)
 			return ans;
-		else if (arr1 == null || arr1.length == 0)
-			return arr2.clone();
-		else if (arr2 == null || arr2.length == 0)
-			return arr1.clone();
-		int n = arr1.length, m = arr2.length;
-		ans = new Integer[n + m];
-		int i = 0, j = 0, k = 0;
-		while (i < n && j < m) {
-			if (arr1[i] < arr2[j])
-				ans[k++] = arr1[i++];
-			else
-				ans[k++] = arr2[j++];
+		if (b == null || b.size() == 0) {
+			ans.addAll(a);
+		} else if (a == null || a.size() == 0) {
+			ans.addAll(b);
+		} else {
+			int i = 0, j = 0, n = a.size(), m = b.size();
+			while (i < n && j < m) {
+				if (a.get(i) < b.get(j)) {
+					ans.add(a.get(i));
+					i++;
+				} else {
+					ans.add(b.get(j));
+					j++;
+				}
+			}
+			while (i < n)
+				ans.add(a.get(i++));
+			while (j < m)
+				ans.add(b.get(j++));
 		}
-		while (i < n)
-			ans[k++] = arr1[i++];
-		while (j < m)
-			ans[k++] = arr2[j++];
 		return ans;
 	}
 
+	private Integer custumQuery(int treeIndex, int start, int end, int rangeStart, int rangeEnd, int k) {
+
+		if (start == end) {
+			return segTee[treeIndex].get(0);
+		}
+		List<Integer> left = segTee[2 * treeIndex];
+		int starPos = findStartPos(left, rangeStart), endPos = findEndPos(left, rangeEnd);
+		int noOfEleLeft = endPos - starPos + 1, mid = start + (end - start) / 2;
+		if (k <= noOfEleLeft)
+			return custumQuery(2 * treeIndex, start, mid, rangeStart, rangeEnd, k);
+		else
+			return custumQuery(2 * treeIndex + 1, mid + 1, end, rangeStart, rangeEnd, k - noOfEleLeft);
+	}
+
+	private int findStartPos(List<Integer> list, int x) {
+		int l = 0, r = list.size()-1;
+		while (l <= r) {
+			int mid = l + (r - l) / 2;
+			if (x <= list.get(mid)) {
+				r = mid - 1;
+			} else {
+				l = mid + 1;
+			}
+		}
+		return l;
+	}
+	
+	private int findEndPos(List<Integer> list, int x) {
+		int l = 0, r = list.size()-1;
+		while (l <= r) {
+			int mid = l + (r - l) / 2;
+			if (x >= list.get(mid)) {
+				l = mid + 1;
+			} else {
+				r = mid - 1;
+			}
+		}
+		return r;
+	}
 }

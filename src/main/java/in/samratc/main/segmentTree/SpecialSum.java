@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import in.samratc.util.SegmentTree;
+import in.samratc.util.SegmentTreeOnArray;
 
 public class SpecialSum {
 
@@ -50,10 +50,10 @@ class SpecialSumSol {
 
 		// Mapping arr to obj and creating a rangeSum segment tree fro a[i]
 		Long[] a = Arrays.stream(arr).mapToLong(i -> (long) i).boxed().toArray(Long[]::new);
-		SegmentTree<Long, Long> rangeSumTreeA = new SegmentTree<>(Long.class, a, this::modSum, Function.identity());
+		SegmentTreeOnArray<Long, Long> rangeSumTreeA = new SegmentTreeOnArray<>(Long.class, a, this::modSum, Function.identity());
 
 		Long[] b = IntStream.range(0, n).mapToLong(i -> (long) ((i + 1) * arr[i])).boxed().toArray(Long[]::new);
-		SegmentTree<Long, Long> rangeSumTreeB = new SegmentTree<>(Long.class, b, this::modSum, Function.identity());
+		SegmentTreeOnArray<Long, Long> rangeSumTreeB = new SegmentTreeOnArray<>(Long.class, b, this::modSum, Function.identity());
 
 		for (int i = 0; i < m; i++) {
             switch (queries[i][0]) {
