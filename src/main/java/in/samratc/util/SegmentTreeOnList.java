@@ -2,16 +2,16 @@ package in.samratc.util;
 
 import java.lang.reflect.Array;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 
 public class SegmentTreeOnList<F,E> implements SegmentTree<F, E>{
 	private E[] segTree;
 	private List<F> list;
 	private int arrSize, segTreeSize;
-	private BiFunction<E, E, E> mergerFuct;
+	private BinaryOperator<E> mergerFuct;
 	private Function<F, E> converterFunc;
-	public SegmentTreeOnList(Class<E> segTreeClazz, List<F> list, BiFunction<E, E, E> mergerBiFunction, Function<F, E> converterFunc) {
+	public SegmentTreeOnList(Class<E> segTreeClazz, List<F> list, BinaryOperator<E> mergerBiFunction, Function<F, E> converterFunc) {
 		if(list == null || list.size() == 0)
 			throw new IllegalStateException("Null or Empty Array");
 		this.arrSize = list.size();
