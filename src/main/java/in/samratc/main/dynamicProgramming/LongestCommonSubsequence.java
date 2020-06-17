@@ -23,4 +23,16 @@ class LongestCommonSubsequenceSol {
         return subSeqLen[n][m];
     }
 
+    String responseString,macAddress,statusCode;
+
+    @Override
+    public String toString() {
+        String jsonStrResp = responseString.length() > 0 && responseString.charAt(0) == '{' ? responseString.toString(): "\""+ responseString + "\"";
+        return String.format("{\n" +
+                "\t\"response\" :%s,\n" +
+                "\t\"macAddress\" :\"%s\",\n" +
+                "\t\"status\" : %d\n" +
+                "}",responseString,macAddress,statusCode);
+    }
+
 }
