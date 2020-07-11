@@ -28,6 +28,8 @@ class UnBoundedKnapsackSol {
         }
         return profitForCapacity[capacity];
     }
+
+
 }
 
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class DistinctCommonSubSeqCount {
 
     public static void main(String... ar) {
-        System.out.println(new DistinctCommonSubSeqCountSol().numDistinct("aaaababbababbaabbaaababaaabbbaaabbb", "bbababa"));
+        System.out.println(new DistinctCommonSubSeqCountSol().numDistinct("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
     }
 
 }

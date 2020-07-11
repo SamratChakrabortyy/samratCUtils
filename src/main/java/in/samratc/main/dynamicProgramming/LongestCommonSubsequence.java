@@ -3,7 +3,7 @@ package in.samratc.main.dynamicProgramming;
 public class LongestCommonSubsequence {
 
     public static void main(String... args) {
-        System.out.println(new LongestCommonSubsequenceSol().solve("aaa", "aaa"));
+        System.out.println(new LongestCommonSubsequenceSol().solve("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"));
     }
 
 }
