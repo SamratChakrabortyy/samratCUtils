@@ -27,10 +27,4 @@ public class MergeIntervals {
         }
         return Arrays.copyOfRange(ans, 0, j);
     }
-
-    /*
-     *    1,3 2,6, 7,9 8,10
-     *
-     *
-     * */
 }
