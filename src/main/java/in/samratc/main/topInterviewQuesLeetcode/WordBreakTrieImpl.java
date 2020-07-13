@@ -2,14 +2,23 @@ package in.samratc.main.topInterviewQuesLeetcode;
 
 import java.util.List;
 
+//https://leetcode.com/problems/word-break/
 public class WordBreakTrieImpl {
+    /**
+     * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words,
+     * determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+     *
+     * Note:
+     *  The same word in the dictionary may be reused multiple times in the segmentation.
+     *  You may assume the dictionary does not contain duplicate words.
+     */
     public boolean wordBreak(String s, List<String> wordDict) {
         TrieNode root = new TrieNode();
         for (String word : wordDict)
             addToTrie(root, word);
         int n = s.length();
-        boolean[] isBreak = new boolean[n];
-        isBreak[0] = true;
+        boolean[] isBreak = new boolean[n+1];
+        isBreak[n] = true;
         for (int i = n - 1; i >= 0; i--) {
             TrieNode curr = root;
             for (int j = i; j < n; j++) {
