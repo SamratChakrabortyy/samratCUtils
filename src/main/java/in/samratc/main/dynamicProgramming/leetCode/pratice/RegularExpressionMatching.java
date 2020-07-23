@@ -19,16 +19,13 @@ public class RegularExpressionMatching {
                 if (p.charAt(j - 1) == '.' || (p.charAt(j - 1) == s.charAt(i - 1)))
                     isMatch[i][j] = isMatch[i - 1][j - 1];
                 else if (p.charAt(j - 1) == '*') {
-                    if (isMatch[i][j - 2] || // Matching 0 instance of preceding character
-                            (
-                                    (p.charAt(j - 2) == '.' || s.charAt(i - 1) == p.charAt(j - 2)) &&
-                                            (isMatch[i][j - 1] || // Matching exactly 1 instance of character
-                                                    isMatch[i - 1][j]) // Matching multiple instance of character
-                            )
-                    ) {
-                        //System.out.println(String.format("%d %d %s",));
-                        isMatch[i][j] = true;
-                    }
+
+                    isMatch[i][j] = isMatch[i][j - 2] || // Matching 0 instance of preceding character
+                            (p.charAt(j - 2) == '.' || s.charAt(i - 1) == p.charAt(j - 2)) &&
+                                    (
+                                            isMatch[i][j - 1] || // Matching exactly 1 instance of character
+                                                    isMatch[i - 1][j] // Matching multiple instance of character
+                                    );
                 }
             }
         }
