@@ -1,13 +1,11 @@
 package in.samratc.main.dynamicProgramming.leetCode.pratice;
 
-import java.util.Arrays;
-
 public class RegularExpressionMatching {
     public boolean isMatch(String s, String p) {
-        if (s.isEmpty()) {
-            if (p.isEmpty() || p.length() == 2 && p.charAt(1) == '*')
-                return true;
-        }
+        if (isEmpty(s))
+            s = "";
+        if (isEmpty(p))
+            p = "";
         int n = s.length(), m = p.length();
 
         boolean[][] isMatch = new boolean[n + 1][m + 1];
@@ -44,6 +42,6 @@ public class RegularExpressionMatching {
 
     //Driver
     public static void main(String... args) {
-        System.out.println(new RegularExpressionMatching().isMatch("", "mis*is*p*."));
+        System.out.println(new RegularExpressionMatching().isMatch(null, "c*.*a*"));
     }
 }
