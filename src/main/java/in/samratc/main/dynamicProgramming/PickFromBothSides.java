@@ -24,21 +24,21 @@ public class PickFromBothSides {
 
                  So, its evidently a 2D DP so the no. of states = N^2
 
-                 But if you look closely you'll find out that we can solve this O(k) for both time and space.
+                 But if you look closely you'll find out that we can solve this O(k) for  time and O(1) space.
                  See the code ;)  (PS this is discussed not my own, LOL)
          */
         if (nums == null || nums.length == 0 || k <= 0)
             return 0;
         int n = nums.length;
-        int[] prefixSum = new int[k + 1];
-        prefixSum[0] = 0;
-        for (int i = 1; i <= k; i++) {
-            prefixSum[i] += prefixSum[i - 1] + nums[i-1];
+        int prefixSum = 0;
+        for (int i = 0; i < k; i++) {
+            prefixSum = prefixSum + nums[i];
         }
-        int max = prefixSum[k], suffixSum = 0;
+        int max = prefixSum, suffixSum = 0;
         for (int i = 0; i < k; i++) {
             suffixSum += nums[n-1-i];
-            max = Math.max(max, suffixSum + prefixSum[k-1-i]);
+            prefixSum -= nums[k-1-i];
+            max = Math.max(max, suffixSum + prefixSum);
         }
         return max;
     }
