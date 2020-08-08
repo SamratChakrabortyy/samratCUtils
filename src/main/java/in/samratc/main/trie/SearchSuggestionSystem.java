@@ -25,9 +25,9 @@ class SearchSuggestionSystemSol {
             if (t.next[c - 'a'] == null)
                 t.next[c - 'a'] = new TrieNode();
             t = t.next[c - 'a'];
+            if (t.sug.size() < 3)
+                t.sug.add(str);
         }
-        if (t.sug.size() < 3)
-            t.sug.add(str);
     }
 
     private List<List<String>> search(TrieNode root, String searchWord) {
