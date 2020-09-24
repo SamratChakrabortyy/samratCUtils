@@ -1,0 +1,151 @@
+Design Unacademy: (1:46 PM)
+-------------------
+
+Requirements:
+
+1. User can register / login 
+2. User can enroll into courses
+3. Each Course consist of Set of recorded lectures
+4. Each Lecture will have some assingment to complete
+5. User can track his or her course completion percentage
+6. Intrsuctors can upload a lecture for a particular topic
+7. Instructor can add assingment to a lecture
+8. Insructor can track performance of his students
+9. Assignment consist of set of Questions
+10. Questions can be of einter subjective or MCQ based
+11. User can take tests on a topic or the complete course 
+
+
+Func:
+
+User.register
+User.login
+usser.enroll(course)
+User.view(lecture) --- includes --> increment_course_completion_percentage
+User.solve(assignment)  --- include --> assignment Completion pertange inceement
+user.takeTest(Test)  
+
+instructor.register
+instructor.login
+instructor.upload(lecture, topic)
+instructor.addQuestion(topic)   --- include --> add question on the particular topic to the QuestionBank
+instructor.createAssignment(topic, List<Question>, Lecture)
+instructor.track(user)
+
+
+
+API
+
+register(isInstuctor, userName, email)
+signin(login creds) -> return authToken
+updateProfile(authToken, modified userDetails)
+view(authToken, letureId)
+getAssignment(authToken, assignmentId) -> return list of questions
+solve(authToken, questionId, answer)
+		subjective Question --> return request accepted
+		mcq question -> return correct/incorrect
+		
+getTest(authToken, topic) --> compiles set of question and returns the set
+saveTestAnswer(authToken, testid, questionId, answer)
+submitTest(authToken, testId)
+
+uploadLecture(authToken, topic, videoContent)
+addAddQuestion(topic, QuestionText, isObjective, options, correctAnswer)
+createAssignment(authToken, topic, lecture, list<questionId>)
+
+
+abstract class Account{
+	String name;
+	String email;
+	String password;
+	Course course;
+}
+
+class User extends Account{	
+	double completionPercentage;
+}
+
+class Instructor extends Account{
+	
+}
+
+class Course{
+	String name;
+	String desc;
+	Date creationDate;
+	
+}
+
+class Topic{
+	String name;
+	String desc;
+	Date creationDate;
+	Course course;
+}
+
+enum QuestionLevel{
+	Easy, Medium, Hard;
+}
+
+enum AnswerStatus{
+	Saved, 
+	ToBeEvaluated,
+	PartiallyCorrect,
+	Correct,
+	Incorrect;
+	
+}
+abstract class Question{
+	String content;
+	QuestionLevel level;
+	Date creationDate;
+	Insructor creator;
+	Topic topic;
+	abstract evaluate(String ans);
+}
+
+class SubjectiveQuestion extends Question{
+	evaluate(String ans){
+		Question.
+	}
+}
+
+class Lecture{
+	Topic topic;
+	Instructor creator;
+	Date creationDate;
+	List<Assignment> assingments
+}
+
+class Assignment{
+	List<Question> Questions;
+}
+
+class Test{
+	List<Question> questions;
+	saveAnswer(Question)
+	
+}
+
+interface UserService{
+	register(name, email, password, Course);
+	boolean signin(email, password);
+}
+
+interface CourseService{
+	List<Topic> getToic(Course course);
+	List<Lecture> getLectures(Topic topic);
+	List<Assignment> getAssignment(Lecture lecture);
+}
+
+class TestFactory{
+	Test createRandomtest(List<Topic> topics, User user, Map<QuestionLevel, Integer> levelMap);
+}
+
+class Answer{
+	String centent;
+	Question question;
+	User user;
+	AnswerStatus status;
+}
+
